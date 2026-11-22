@@ -17,14 +17,14 @@
       {
         "path": "/school/calendars",
         "body": null,
-        "file": "west.ics",
+        "file": "west-delta.ics",
         "query": {
-          "school": "W"
+          "school": "W",
+          "since": "W0"
         },
         "headers": {
-          "Content-Type": "text/calendar",
           "X-Sync-Key": "W1",
-          "X-Scope": "2026-11-20/2026-11-22"
+          "Content-Type": "text/calendar"
         }
       },
       {
@@ -42,6 +42,19 @@
             "state": "held"
           }
         ]
+      },
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "west.ics",
+        "query": {
+          "school": "W"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "W1",
+          "X-Scope": "2026-11-20/2026-11-22"
+        }
       }
     ],
     "local-change": [
@@ -119,6 +132,44 @@
             "state": "live"
           }
         ]
+      },
+      {
+        "path": "/calling/amend",
+        "body": {
+          "state": "superseded",
+          "receipt": "f3"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C1",
+          "by": "E",
+          "receipt": "f1"
+        },
+        "status": 200
+      },
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "east.ics",
+        "query": {
+          "school": "E"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "E1",
+          "X-Scope": "2026-11-20/2026-11-22"
+        }
+      },
+      {
+        "path": "/school/calendars",
+        "body": {
+          "error": "凭据已失效"
+        },
+        "query": {
+          "school": "W",
+          "since": "W1"
+        },
+        "status": 410
       }
     ]
   },
