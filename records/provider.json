@@ -110,6 +110,21 @@
           "receipt": "f1"
         },
         "status": 202
+      },
+      {
+        "path": "/calling/hold",
+        "body": {
+          "session": "C2",
+          "by": "E",
+          "receipt": "E-C2-1"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C2",
+          "by": "E"
+        },
+        "status": 201,
+        "next": "second-room"
       }
     ],
     "accepted": [
@@ -170,6 +185,161 @@
           "since": "W1"
         },
         "status": 410
+      }
+    ],
+    "second-room": [
+      {
+        "path": "/school/calendars",
+        "body": {
+          "error": "凭据已失效"
+        },
+        "query": {
+          "school": "W",
+          "since": "W1"
+        },
+        "status": 410
+      },
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "west2.ics",
+        "query": {
+          "school": "W"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "W2",
+          "X-Scope": "2026-11-20/2026-11-21"
+        }
+      },
+      {
+        "path": "/calling/offers",
+        "body": [
+          {
+            "session": "C1",
+            "by": "E",
+            "state": "open",
+            "receipt": "f1"
+          },
+          {
+            "session": "C1",
+            "by": "W",
+            "state": "closed"
+          },
+          {
+            "session": "C2",
+            "by": "E",
+            "state": "held",
+            "receipt": "E-C2-1"
+          }
+        ]
+      },
+      {
+        "path": "/calling/amend",
+        "body": {
+          "state": "received"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C1",
+          "by": "E",
+          "receipt": "f1"
+        },
+        "status": 202
+      },
+      {
+        "path": "/calling/hold",
+        "body": {
+          "session": "C2",
+          "by": "W",
+          "receipt": "W-C2-1"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C2",
+          "by": "W"
+        },
+        "status": 201,
+        "next": "held-c2"
+      }
+    ],
+    "held-c2": [
+      {
+        "path": "/school/calendars",
+        "body": {
+          "error": "凭据已失效"
+        },
+        "query": {
+          "school": "W",
+          "since": "W1"
+        },
+        "status": 410
+      },
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "west2.ics",
+        "query": {
+          "school": "W"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "W2",
+          "X-Scope": "2026-11-20/2026-11-21"
+        }
+      },
+      {
+        "path": "/calling/offers",
+        "body": [
+          {
+            "session": "C1",
+            "by": "E",
+            "state": "open",
+            "receipt": "f1"
+          },
+          {
+            "session": "C1",
+            "by": "W",
+            "state": "closed"
+          },
+          {
+            "session": "C2",
+            "by": "E",
+            "state": "held",
+            "receipt": "E-C2-1"
+          },
+          {
+            "session": "C2",
+            "by": "W",
+            "state": "held",
+            "receipt": "W-C2-1"
+          }
+        ]
+      },
+      {
+        "path": "/calling/amend",
+        "body": {
+          "state": "received"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C1",
+          "by": "E",
+          "receipt": "f1"
+        },
+        "status": 202
+      },
+      {
+        "path": "/calling/open",
+        "body": {
+          "state": "received",
+          "receipt": "C2-open"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C2"
+        },
+        "status": 202
       }
     ]
   },

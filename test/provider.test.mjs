@@ -24,4 +24,8 @@ test('校历过期回退的日期范围与两校房间开通不同步', async t 
   assert.equal((await fetch(root + '/school/calendars?school=W&since=W1')).status, 410)
   assert.equal((await fetch(root + '/school/calendars?school=W')).headers.get('x-scope'), '2026-11-20/2026-11-21')
   assert.deepEqual((await (await fetch(root + '/calling/offers')).json()).map(row => row.state), ['open','closed'])
+  assert.equal((await post(root, '/calling/hold', { session: 'C2', by: 'E' })).status, 201)
+  assert.equal((await post(root, '/calling/hold', { session: 'C2', by: 'W' })).status, 201)
+  assert.equal((await post(root, '/calling/open', { session: 'C2', holds: ['E-C2-1', 'W-C2-1'] })).status, 202)
+  assert.equal((await (await fetch(root + '/calling/offers')).json()).filter(row => row.state === 'held').length, 2)
 })
