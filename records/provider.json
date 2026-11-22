@@ -1,0 +1,126 @@
+{
+  "stages": {
+    "held": [
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "east.ics",
+        "query": {
+          "school": "E"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "E1",
+          "X-Scope": "2026-11-20/2026-11-22"
+        }
+      },
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "west.ics",
+        "query": {
+          "school": "W"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "W1",
+          "X-Scope": "2026-11-20/2026-11-22"
+        }
+      },
+      {
+        "path": "/calling/offers",
+        "body": [
+          {
+            "session": "C1",
+            "by": "E",
+            "state": "open",
+            "receipt": "f1"
+          },
+          {
+            "session": "C1",
+            "by": "W",
+            "state": "held"
+          }
+        ]
+      }
+    ],
+    "local-change": [
+      {
+        "path": "/school/calendars",
+        "body": {
+          "error": "凭据已失效"
+        },
+        "query": {
+          "school": "W",
+          "since": "W1"
+        },
+        "status": 410
+      },
+      {
+        "path": "/school/calendars",
+        "body": null,
+        "file": "west2.ics",
+        "query": {
+          "school": "W"
+        },
+        "headers": {
+          "Content-Type": "text/calendar",
+          "X-Sync-Key": "W2",
+          "X-Scope": "2026-11-20/2026-11-21"
+        }
+      },
+      {
+        "path": "/calling/offers",
+        "body": [
+          {
+            "session": "C1",
+            "by": "E",
+            "state": "open",
+            "receipt": "f1"
+          },
+          {
+            "session": "C1",
+            "by": "W",
+            "state": "closed"
+          }
+        ]
+      },
+      {
+        "path": "/calling/amend",
+        "body": {
+          "state": "received"
+        },
+        "method": "POST",
+        "payload": {
+          "session": "C1",
+          "by": "E",
+          "receipt": "f1"
+        },
+        "status": 202
+      }
+    ],
+    "accepted": [
+      {
+        "path": "/calling/offers",
+        "body": [
+          {
+            "session": "C1",
+            "by": "W",
+            "state": "closed"
+          },
+          {
+            "session": "C2",
+            "by": "W",
+            "state": "live"
+          },
+          {
+            "session": "C2",
+            "by": "E",
+            "state": "live"
+          }
+        ]
+      }
+    ]
+  },
+  "common": []
+}
